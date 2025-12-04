@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test ML Predictions</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        button {
+            background: #00c896;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background: #00b085;
+        }
+        .result {
+            background: #f0f9ff;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            border: 2px solid #0066cc;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>🤖 Test ML Valuation Predictions</h1>
+    
+    <h2>Test Different Company Types:</h2>
+    
+    <button onclick="testTech()">Test Tech Company (High Multiple)</button>
+    <button onclick="testMining()">Test Mining Company (Low Multiple)</button>
+    <button onclick="testConstruction()">Test Construction Company (Medium Multiple)</button>
+    
+    <div id="result"></div>
+
+    <script>
+        async function testTech() {
+            showResult('Testing Technology company...', 'loading');
+            
+            const response = await fetch('http://localhost:5000/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    sector: 'Technology',
+                    geography: 'North America',
+                    revenue: 50
+                })
+            });
+            
+            const data = await response.json();
+            displayResult('Tech Company (USA, $50M)', data, 5.4);
+        }
+        
+        async function testMining() {
+            showResult('Testing Mining company...', 'loading');
+            
+            const response = await fetch('http://localhost:5000/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    sector: 'Mining/Resources',
+                    geography: 'Peru',
+                    revenue: 25
+                })
+            });
+            
+            const data = await response.json();
+            displayResult('Mining Company (Peru, $25M)', data, 0.84);
+        }
+        
+        async function testConstruction() {
+            showResult('Testing Construction company...', 'loading');
+            
+            const response = await fetch('http://localhost:5000/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    sector: 'Construction/Real Estate',
+                    geography: 'Sweden',
+                    revenue: 100
+                })
+            });
+            
+            const data = await response.json();
+            displayResult('Construction Company (Sweden, $100M)', data, 0.77);
+        }
+        
+        function displayResult(companyType, data, expectedMultiple) {
+            if (data.success) {
+                const multiple = data.predictions.revenue_multiple;
+                const valuation = data.predictions.enterprise_value_m;
+                const confidence = (data.predictions.confidence * 100).toFixed(0);
+                
+                const isClose = Math.abs(multiple - expectedMultiple) < 1.0;
+                
+                showResult(`
+                    <h3 class="success">✅ SUCCESS - ${companyType}</h3>
+                    <p><strong>Predicted Multiple:</strong> ${multiple}x 
+                       <span style="color: ${isClose ? 'green' : 'orange'}">
+                       (Expected: ~${expectedMultiple}x)
+                       </span>
+                    </p>
+                    <p><strong>Range:</strong> ${data.predictions.multiple_range.low}x - ${data.predictions.multiple_range.high}x</p>
+                    <p><strong>Enterprise Value:</strong> $${valuation}M</p>
+                    <p><strong>Confidence:</strong> ${confidence}%</p>
+                    <p><strong>Key Drivers:</strong></p>
+                    <ul>
+                        ${data.key_drivers.map(d => `<li>${d}</li>`).join('')}
+                    </ul>
+                    <details>
+                        <summary>View Full Response</summary>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </details>
+                `, 'success');
+            } else {
+                showResult(`
+                    <h3 class="error">❌ ERROR</h3>
+                    <p>${data.error}</p>
+                `, 'error');
+            }
+        }
+        
+        function showResult(html, type) {
+            document.getElementById('result').innerHTML = `<div class="result">${html}</div>`;
+        }
+    </script>
+</body>
+</html>

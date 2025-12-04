@@ -1,0 +1,52 @@
+[
+  {
+    "page": 1,
+    "company_name": null,
+    "revenue_m": 500.0,
+    "funding_need_m": "20-30",
+    "sector": "Trading/Commodities",
+    "geography": "Europe",
+    "ebitda_info": null,
+    "notes_snippet": "COMPANY: Trasteel\nTrading company in steel/metals commodities\nRevenue: 500M EUR\nLooking for: 20-30M trade finance facility\nLocation: Portugal/Europe\nEBITDA: 2-3% margins typical for trading"
+  },
+  {
+    "page": 2,
+    "company_name": "Heritage Cannabis Corp",
+    "revenue_m": null,
+    "funding_need_m": "8-10",
+    "sector": "Cannabis/Healthcare",
+    "geography": "North America",
+    "ebitda_info": null,
+    "notes_snippet": "Heritage Cannabis Corp\nCannabis producer and distributor\nSeeking: 8-10M USD debt or convertible\nOperations: Canada expanding to USA\nHas hard assets for collateral"
+  },
+  {
+    "page": 3,
+    "company_name": "CNTNR Construction",
+    "revenue_m": 70.0,
+    "funding_need_m": "5-18",
+    "sector": "Construction/Real Estate",
+    "geography": "North America",
+    "ebitda_info": "EBITDA: 22%",
+    "notes_snippet": "CNTNR Construction\nModular construction technology\nRevenue: 70M USD signed contracts  \nEBITDA: 22% margins\nSeeking: 5-18M debt facility\nPlans: NASDAQ IPO in 7-9 months"
+  },
+  {
+    "page": 4,
+    "company_name": "Nordic Paper AB",
+    "revenue_m": 130.0,
+    "funding_need_m": "50-100",
+    "sector": "Manufacturing",
+    "geography": "Global",
+    "ebitda_info": null,
+    "notes_snippet": "Nordic Paper AB\nManufacturing - paper products\nRevenue: 130M USD annually\nEmployees: 635\nSeeking: 50-100M for acquisitions\nListed on Swedish Stock Exchange"
+  },
+  {
+    "page": 5,
+    "company_name": "INCA One Gold",
+    "revenue_m": 21.0,
+    "funding_need_m": "10-15",
+    "sector": "Mining/Resources",
+    "geography": "Global",
+    "ebitda_info": null,
+    "notes_snippet": "INCA One Gold\nMining and ore processing\nRevenue: 21M USD\nEBITDA potential: 18-20M at full capacity\nSeeking: 10-15M working capital\nExisting debt: 9M USD\n\"@ | Out-File -FilePath \"test_deals.txt\" -Encoding UTF8"
+  }
+]

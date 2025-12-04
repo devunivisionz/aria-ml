@@ -1,0 +1,41 @@
+# Create a test file with sample deal data
+@"
+--- PAGE 1 ---
+COMPANY: Trasteel
+Trading company in steel/metals commodities
+Revenue: 500M EUR
+Looking for: 20-30M trade finance facility
+Location: Portugal/Europe
+EBITDA: 2-3% margins typical for trading
+
+--- PAGE 2 ---
+Heritage Cannabis Corp
+Cannabis producer and distributor
+Seeking: 8-10M USD debt or convertible
+Operations: Canada expanding to USA
+Has hard assets for collateral
+
+--- PAGE 3 ---
+CNTNR Construction
+Modular construction technology
+Revenue: 70M USD signed contracts  
+EBITDA: 22% margins
+Seeking: 5-18M debt facility
+Plans: NASDAQ IPO in 7-9 months
+
+--- PAGE 4 ---
+Nordic Paper AB
+Manufacturing - paper products
+Revenue: 130M USD annually
+Employees: 635
+Seeking: 50-100M for acquisitions
+Listed on Swedish Stock Exchange
+
+--- PAGE 5 ---
+INCA One Gold
+Mining and ore processing
+Revenue: 21M USD
+EBITDA potential: 18-20M at full capacity
+Seeking: 10-15M working capital
+Existing debt: 9M USD
+"@ | Out-File -FilePath "test_deals.txt" -Encoding UTF8
